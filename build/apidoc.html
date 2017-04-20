@@ -49,8 +49,6 @@
 <h1>api documentation for
     <a
 
-        href="https://github.com/sindresorhus/opn#readme"
-
     >opn (v4.0.2)</a>
 </h1>
 <h4>A better node-open. Opens stuff like websites, files, executables. Cross-platform.</h4>
@@ -61,12 +59,122 @@
 
     <li class="apidocModuleLi"><a href="#apidoc.module.opn">module opn</a><ol>
 
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.opn.opn">
+            function <span class="apidocSignatureSpan"></span>opn
+            <span class="apidocSignatureSpan">(target, opts)</span>
+            </a>
+
+        </li>
+
     </ol></li>
 
 </ol></div>
 
 <div class="apidocSectionDiv">
 <h1><a href="#apidoc.module.opn" id="apidoc.module.opn">module opn</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.opn.opn" id="apidoc.element.opn.opn">
+        function <span class="apidocSignatureSpan"></span>opn
+        <span class="apidocSignatureSpan">(target, opts)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">opn = function (target, opts) {
+	if (typeof target !== &#x27;string&#x27;) {
+		return Promise.reject(new Error(&#x27;Expected a `target`&#x27;));
+	}
+
+	opts = objectAssign({wait: true}, opts);
+
+	var cmd;
+	var appArgs = [];
+	var args = [];
+	var cpOpts = {};
+
+	if (Array.isArray(opts.app)) {
+		appArgs = opts.app.slice(1);
+		opts.app = opts.app[0];
+	}
+
+	if (process.platform === &#x27;darwin&#x27;) {
+		cmd = &#x27;open&#x27;;
+
+		if (opts.wait) {
+			args.push(&#x27;-W&#x27;);
+		}
+
+		if (opts.app) {
+			args.push(&#x27;-a&#x27;, opts.app);
+		}
+	} else if (process.platform === &#x27;win32&#x27;) {
+		cmd = &#x27;cmd&#x27;;
+		args.push(&#x27;/c&#x27;, &#x27;start&#x27;, &#x27;&#x22;&#x22;&#x27;);
+		target = target.replace(/&#x26;/g, &#x27;^&#x26;&#x27;);
+
+		if (opts.wait) {
+			args.push(&#x27;/wait&#x27;);
+		}
+
+		if (opts.app) {
+			args.push(opts.app);
+		}
+
+		if (appArgs.length &#x3e; 0) {
+			args = args.concat(appArgs);
+		}
+	} else {
+		if (opts.app) {
+			cmd = opts.app;
+		} else {
+			cmd = path.join(__dirname, &#x27;xdg-open&#x27;);
+		}
+
+		if (appArgs.length &#x3e; 0) {
+			args = args.concat(appArgs);
+		}
+
+		if (!opts.wait) {
+			// xdg-open will block the process unless
+			// stdio is ignored even if it&#x27;s unref&#x27;d
+			cpOpts.stdio = &#x27;ignore&#x27;;
+		}
+	}
+
+	args.push(target);
+
+	if (process.platform === &#x27;darwin&#x27; &#x26;&#x26; appArgs.length &#x3e; 0) {
+		args.push(&#x27;--args&#x27;);
+		args = args.concat(appArgs);
+	}
+
+	var cp = childProcess.spawn(cmd, args, cpOpts);
+
+	if (opts.wait) {
+		return new Promise(function (resolve, reject) {
+			cp.once(&#x27;error&#x27;, reject);
+
+			cp.once(&#x27;close&#x27;, function (code) {
+				if (code &#x3e; 0) {
+					reject(new Error(&#x27;Exited with code &#x27; + code));
+					return;
+				}
+
+				resolve(cp);
+			});
+		});
+	}
+
+	cp.unref();
+
+	return Promise.resolve(cp);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
 
 </div>
 

@@ -1,4 +1,4 @@
-<div class="apidocDiv">
+<html><head></head><body><div class="apidocDiv">
 <style>
 /*csslint
 */
@@ -47,15 +47,10 @@
 }
 </style>
 <h1>api documentation for
-    <a
-
-    >opn (v4.0.2)</a>
+    <a>opn (v4.0.2)</a>
 </h1>
 <h4>A better node-open. Opens stuff like websites, files, executables. Cross-platform.</h4>
-<div class="apidocSectionDiv"><a
-    href="#apidoc.tableOfContents"
-    id="apidoc.tableOfContents"
-><h1>table of contents</h1></a><ol>
+<div class="apidocSectionDiv"><a href="#apidoc.tableOfContents" id="apidoc.tableOfContents"><h1>table of contents</h1></a><ol>
 
     <li class="apidocModuleLi"><a href="#apidoc.module.opn">module opn</a><ol>
 
@@ -84,8 +79,8 @@
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">opn = function (target, opts) {
-	if (typeof target !== &#x27;string&#x27;) {
-		return Promise.reject(new Error(&#x27;Expected a `target`&#x27;));
+	if (typeof target !== 'string') {
+		return Promise.reject(new Error('Expected a `target`'));
 	}
 
 	opts = objectAssign({wait: true}, opts);
@@ -100,54 +95,54 @@
 		opts.app = opts.app[0];
 	}
 
-	if (process.platform === &#x27;darwin&#x27;) {
-		cmd = &#x27;open&#x27;;
+	if (process.platform === 'darwin') {
+		cmd = 'open';
 
 		if (opts.wait) {
-			args.push(&#x27;-W&#x27;);
+			args.push('-W');
 		}
 
 		if (opts.app) {
-			args.push(&#x27;-a&#x27;, opts.app);
+			args.push('-a', opts.app);
 		}
-	} else if (process.platform === &#x27;win32&#x27;) {
-		cmd = &#x27;cmd&#x27;;
-		args.push(&#x27;/c&#x27;, &#x27;start&#x27;, &#x27;&#x22;&#x22;&#x27;);
-		target = target.replace(/&#x26;/g, &#x27;^&#x26;&#x27;);
+	} else if (process.platform === 'win32') {
+		cmd = 'cmd';
+		args.push('/c', 'start', '""');
+		target = target.replace(/&amp;/g, '^&amp;');
 
 		if (opts.wait) {
-			args.push(&#x27;/wait&#x27;);
+			args.push('/wait');
 		}
 
 		if (opts.app) {
 			args.push(opts.app);
 		}
 
-		if (appArgs.length &#x3e; 0) {
+		if (appArgs.length &gt; 0) {
 			args = args.concat(appArgs);
 		}
 	} else {
 		if (opts.app) {
 			cmd = opts.app;
 		} else {
-			cmd = path.join(__dirname, &#x27;xdg-open&#x27;);
+			cmd = path.join(__dirname, 'xdg-open');
 		}
 
-		if (appArgs.length &#x3e; 0) {
+		if (appArgs.length &gt; 0) {
 			args = args.concat(appArgs);
 		}
 
 		if (!opts.wait) {
 			// xdg-open will block the process unless
-			// stdio is ignored even if it&#x27;s unref&#x27;d
-			cpOpts.stdio = &#x27;ignore&#x27;;
+			// stdio is ignored even if it's unref'd
+			cpOpts.stdio = 'ignore';
 		}
 	}
 
 	args.push(target);
 
-	if (process.platform === &#x27;darwin&#x27; &#x26;&#x26; appArgs.length &#x3e; 0) {
-		args.push(&#x27;--args&#x27;);
+	if (process.platform === 'darwin' &amp;&amp; appArgs.length &gt; 0) {
+		args.push('--args');
 		args = args.concat(appArgs);
 	}
 
@@ -155,11 +150,11 @@
 
 	if (opts.wait) {
 		return new Promise(function (resolve, reject) {
-			cp.once(&#x27;error&#x27;, reject);
+			cp.once('error', reject);
 
-			cp.once(&#x27;close&#x27;, function (code) {
-				if (code &#x3e; 0) {
-					reject(new Error(&#x27;Exited with code &#x27; + code));
+			cp.once('close', function (code) {
+				if (code &gt; 0) {
+					reject(new Error('Exited with code ' + code));
 					return;
 				}
 
@@ -184,3 +179,4 @@
     ]
 </div>
 </div>
+</body></html>
