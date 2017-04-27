@@ -1,6 +1,6 @@
 # npmdoc-opn
 
-#### api documentation for  opn (v4.0.2)  [![npm package](https://img.shields.io/npm/v/npmdoc-opn.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-opn) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-opn.svg)](https://travis-ci.org/npmdoc/node-npmdoc-opn)
+#### basic api documentation for  [opn (v4.0.2)](https://github.com/sindresorhus/opn#readme)  [![npm package](https://img.shields.io/npm/v/npmdoc-opn.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-opn) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-opn.svg)](https://travis-ci.org/npmdoc/node-npmdoc-opn)
 
 #### A better node-open. Opens stuff like websites, files, executables. Cross-platform.
 
@@ -21,25 +21,36 @@
 ```json
 
 {
-    "name": "opn",
-    "version": "4.0.2",
-    "description": "A better node-open. Opens stuff like websites, files, executables. Cross-platform.",
-    "license": "MIT",
-    "repository": "sindresorhus/opn",
     "author": {
         "name": "Sindre Sorhus",
         "url": "sindresorhus.com"
     },
+    "bugs": {
+        "url": "https://github.com/sindresorhus/opn/issues"
+    },
+    "dependencies": {
+        "object-assign": "^4.0.1",
+        "pinkie-promise": "^2.0.0"
+    },
+    "description": "A better node-open. Opens stuff like websites, files, executables. Cross-platform.",
+    "devDependencies": {
+        "ava": "*",
+        "xo": "*"
+    },
+    "directories": {},
+    "dist": {
+        "shasum": "7abc22e644dff63b0a96d5ab7f2790c0f01abc95",
+        "tarball": "https://registry.npmjs.org/opn/-/opn-4.0.2.tgz"
+    },
     "engines": {
         "node": ">=0.10.0"
-    },
-    "scripts": {
-        "test": "xo && ava"
     },
     "files": [
         "index.js",
         "xdg-open"
     ],
+    "gitHead": "b56b0e981ee377d3b04c57a4e6748ad2793ada17",
+    "homepage": "https://github.com/sindresorhus/opn#readme",
     "keywords": [
         "app",
         "open",
@@ -67,14 +78,23 @@
         "website",
         "file"
     ],
-    "dependencies": {
-        "object-assign": "^4.0.1",
-        "pinkie-promise": "^2.0.0"
+    "license": "MIT",
+    "maintainers": [
+        {
+            "name": "sindresorhus"
+        }
+    ],
+    "name": "opn",
+    "optionalDependencies": {},
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/sindresorhus/opn.git"
     },
-    "devDependencies": {
-        "ava": "*",
-        "xo": "*"
-    }
+    "scripts": {
+        "test": "xo && ava"
+    },
+    "version": "4.0.2",
+    "bin": {}
 }
 ```
 
